@@ -1,44 +1,102 @@
-{% extends "base.html" %}
-{% block head %}
-  {{ super() }}
-  {% if article.description %}
-    <meta name="description" content="{{article.description}}" />
-  {% endif %}
+<!-- same as index.html, except that only one article is shown -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
 
-  {% for tag in article.tags %}
-    <meta name="tags" content="{{tag}}" />
-  {% endfor %}
+    <title>Sharath's core dump</title>
 
-{% endblock %}
 
-{% block content %}
-<section id="content" class="body">
-  <header>
-    <h2 class="entry-title">
-      <a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark"
-         title="Permalink to {{ article.title|striptags }}">{{ article.title }}</a></h2>
- {% import 'translations.html' as translations with context %}
- {{ translations.translations_for(article) }}
-  </header>
-  <footer class="post-info">
-    <time class="published" datetime="{{ article.date.isoformat() }}">
-      {{ article.locale_date }}
-    </time>
-	{% if article.modified %}
-    <time class="modified" datetime="{{ article.modified.isoformat() }}">
-      {{ article.locale_modified }}
-    </time>
-	{% endif %}
-    {% if article.authors %}
-    <address class="vcard author">
-      By {% for author in article.authors %}
-          <a class="url fn" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
-        {% endfor %}
-    </address>
-    {% endif %}
-  </footer><!-- /.post-info -->
-  <div class="entry-content">
-    {{ article.content }}
-  </div><!-- /.entry-content -->
-</section>
-{% endblock %}
+    <!-- Custom styles for this template -->
+    <link href="theme/blog.css" rel="stylesheet">
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="blog-nav">
+          <a class="blog-nav-item active" href="#">Latest articles</a>
+          <a class="blog-nav-item" href="#">Archive</a>
+          <a class="blog-nav-item" href="#">About</a>
+        </nav>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="row">
+
+        <div class="col-sm-12 blog-main">
+
+          <div class="blog-post">
+            <h2 class="blog-post-title"><a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title|striptags }}">{{ article.title }}</a></h2>
+            <p class="blog-post-meta">{{ article.date.strftime("%a, %d %b %Y") }}</p>
+		    {{ article.content }} 
+          </div><!-- /.blog-post -->
+		  <hr>
+		  </hr>
+        </div><!-- /.blog-main -->
+
+      </div><!-- /.row -->
+
+		  <div id="disqus_thread"></div>
+		  <script>
+			  /**
+			  * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+			  * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+			  */
+			  /*
+			  var disqus_config = function () {
+				  this.page.url = {{ article.url }}; // Replace PAGE_URL with your page's canonical URL variable
+				  this.page.identifier = {{ article.disqus_identifier }}; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+			  };
+			  */
+			  (function() { // DON'T EDIT BELOW THIS LINE
+				  var d = document, s = d.createElement('script');
+
+				  s.src = '//agsha.disqus.com/embed.js';
+
+				  s.setAttribute('data-timestamp', +new Date());
+				  (d.head || d.body).appendChild(s);
+			  })();
+		  </script>
+		  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+    </div><!-- /.container -->
+
+    <footer class="blog-footer">
+      <p>Blog template built for <a href="http://getbootstrap.com">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+      <p>
+        <a href="#">Back to top</a>
+      </p>
+    </footer>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  </body>
+</html>
+
