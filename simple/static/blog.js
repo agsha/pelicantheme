@@ -11,10 +11,7 @@
         let promises = [];
         document.querySelectorAll('[inject-html]')
             .forEach(container => {
-                console.log(container);
-                console.log("fuck me");
                 const template = container.getAttribute('inject-html');
-                console.log("template is sssss"+template);
                 const promise = fetch(template)
                     .then(response => response.text())
                     .then(data => container.innerHTML = data);
